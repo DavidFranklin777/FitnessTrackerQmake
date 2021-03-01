@@ -13,10 +13,17 @@ class MainWindow : public QMainWindow
    Q_OBJECT
 
 public:
+    /**
+    * @brief MainWindow
+    * @param parent
+    */
    explicit MainWindow(QWidget *parent = 0);
    ~MainWindow();
 
 private slots:
+    /**
+     * @brief on_pushButton_clicked
+     */
     void on_pushButton_clicked();
 
 private:

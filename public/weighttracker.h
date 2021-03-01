@@ -13,11 +13,23 @@ class WeightTracker : public QDialog
    Q_OBJECT
 
 public:
+    /**
+    * @brief WeightTracker
+    * @param parent
+    */
    explicit WeightTracker(QWidget *parent = 0);
    ~WeightTracker();
-      void fetchUsername(QString username);
+
+    /**
+    * @brief fetchUsername
+    * @param username
+    */
+   void fetchUsername(QString username);
 
 private slots:
+   /**
+    * @brief on_pushButton_OK_clicked
+    */
    void on_pushButton_OK_clicked();
 
 private:

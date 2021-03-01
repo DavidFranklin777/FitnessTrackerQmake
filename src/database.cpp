@@ -1,9 +1,17 @@
 #include "database.h"
 
 Database::Database()
+    : m_TableCreationScript("CREATE TABLE 'FitnessTrackingTable' ("
+                "'id'	INTEGER,"
+                "'name'	TEXT,"
+                "'weight'	INTEGER,"
+                "'day'	INTEGER,"
+                "'month'	INTEGER,"
+                "'year'	INTEGER,"
+                "PRIMARY KEY('id' AUTOINCREMENT))")
+    ,m_QSqlQuery(m_TableCreationScript)
 {
     connectDatabase();
-    init();
 }
 
 void Database::connectDatabase()
@@ -12,8 +20,8 @@ void Database::connectDatabase()
     if(QSqlDatabase::isDriverAvailable(databaseDriver))
     {
         m_QSqlDatabase = QSqlDatabase::addDatabase(databaseDriver);
-        //m_QSqlDatabase.setDatabaseName("D:/Softwares/SQlite_browser/SQliteBrowser/SQLiteDBtest.db"); // -- Windows
-        m_QSqlDatabase.setDatabaseName("/home/user/Desktop/DB_FTracker/fitness.db");
+        m_QSqlDatabase.setDatabaseName("D:/Softwares/SQlite_browser/SQliteBrowser/SQLiteDBtest.db"); // -- Windows
+        //m_QSqlDatabase.setDatabaseName("/home/user/Desktop/DB_FTracker/fitness.db");               // --Linux
 
         if(!m_QSqlDatabase.open())
         {
@@ -40,23 +48,23 @@ void Database::init()
                 "'year'	INTEGER,"
                 "PRIMARY KEY('id' AUTOINCREMENT))";
 
-    QSqlQuery query(tableCreationScript);
+    //QSqlQuery query(tableCreationScript);
 }
 
 void Database::saveData(QString &username, QDate &date, const double &weight)
 {
-    QSqlQuery query;
-    query.prepare("INSERT INTO tbl_userinfo("
+    //QSqlQuery query;
+    m_QSqlQuery.prepare("INSERT INTO tbl_userinfo("
                   "name,"
                   "date,"
                   "weight)"
                   "values (?,?,?);");
 
-    query.addBindValue(username);
-    query.addBindValue(date);
-    query.addBindValue(weight);
+    m_QSqlQuery.addBindValue(username);
+    m_QSqlQuery.addBindValue(date);
+    m_QSqlQuery.addBindValue(weight);
 
-    if(!query.exec())
+    if(!m_QSqlQuery.exec())
     {
         qDebug() << "error writing data into the database";
     }
