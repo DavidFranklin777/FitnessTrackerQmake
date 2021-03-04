@@ -23,7 +23,7 @@ void TrackingMenu::on_pushButton_Weight_clicked()
 {
     hide();
     WeightTracker *weightTracker = new WeightTracker();
-    weightTracker->fetchUsername("hi");
+    weightTracker->fetchUsername(m_Username);
     weightTracker->show();
 }
 

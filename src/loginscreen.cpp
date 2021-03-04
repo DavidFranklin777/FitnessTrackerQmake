@@ -7,7 +7,8 @@ LoginScreen::LoginScreen(QWidget *parent) :
     ui(new Ui::LoginScreen)
 {
     ui->setupUi(this);
-    QPixmap pix("D:/Softwares/Practice/QtGui/FitnessTrackerQmake/FitTracker.png");  //Change this to your local file's address
+    //QPixmap pix("D:/Softwares/Practice/QtGui/FitnessTrackerQmake/FitTracker.png");  //Windows
+    QPixmap pix("/home/user/mib3/MyProjects/Practice/FitnessTracker/FitnessTracker/FitTracker.png");  //Linux
     ui->label_logo->setPixmap(pix.scaled(100,100,Qt::KeepAspectRatio));
 }
 
