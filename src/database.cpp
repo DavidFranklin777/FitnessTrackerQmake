@@ -32,10 +32,10 @@ void Database::init()
 {
     qDebug() << "initializing database -- " << m_QSqlDatabase.databaseName();
     QString tableCreationScript = "CREATE TABLE 'tbl_userinfo' ("
-                "'id'	INTEGER,"
+               "'id'	INTEGER,"
                 "'name'	TEXT,"
-                "'weight'	INTEGER,"
                 "'date'	TEXT,"
+                "'weight'	INTEGER,"
                 "PRIMARY KEY('id' AUTOINCREMENT))";
 
     QSqlQuery query(tableCreationScript);
@@ -44,19 +44,35 @@ void Database::init()
 void Database::saveData(QString &username, QDate &date, const double &weight)
 {
     QSqlQuery query;
+    // Changing the format of the date
+    QString dateString = date.toString("dd.MM.yyyy");
     query.prepare("INSERT INTO tbl_userinfo (name,date,weight) VALUES (?,?,?)");
+
+    getIdOfDate(date);
     query.addBindValue(username);
-    query.addBindValue(date);
+    query.addBindValue(dateString);
     query.addBindValue(weight);
 
     if(!query.exec())
     {
         qDebug() << "error writing data into the database";
     }
+
 }
 
 double Database::getData(QString &username, QDate &date, bool result)
 {
 
+}
+
+int Database::getIdOfDate(QDate date)
+{
+   QString idValue;
+   QString searchText = "SELECT id FROM tbl_userinfo"
+                                      " WHERE date = 'date'";
+
+   QSqlQuery query;
+   idValue = query.value(searchText).toString();
+   qDebug() << "idValue = " << idValue;
 }
 
